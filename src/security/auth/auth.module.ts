@@ -11,10 +11,6 @@ import { JwtConfigModule } from 'src/security/jwt/jwt-config.module';
   providers: [
     JwtStrategy,
     EnvService,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
   ],
 })
 export class AuthModule {}

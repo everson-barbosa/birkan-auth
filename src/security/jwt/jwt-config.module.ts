@@ -15,7 +15,6 @@ import { EnvService } from '../../env/env.service';
         const publicKey = env.get('JWT_PUBLIC_KEY');
 
         return {
-          signOptions: { algorithm: 'RS256', expiresIn: '1h' },
           privateKey: Buffer.from(privateKey, 'base64'),
           publicKey: Buffer.from(publicKey, 'base64'),
         };

@@ -4,14 +4,17 @@ import {
   Controller,
   HttpCode,
   Post,
+  Res,
   UnauthorizedException,
   UsePipes,
 } from '@nestjs/common';
-import { AuthenticateWithEmailUseCase } from '../../use-cases/authenticate-with-email.use-case';
+import { LoginWithEmailUseCase } from '../../use-cases/login-with-email.use-case';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { Public } from 'src/security/auth/public';
 import { WrongCredentialsError } from 'src/use-cases/errors/wrong-credentails.error';
+import { Response } from 'express';
+import { setAccessTokenCookie } from 'src/security/auth/access-token-cookie.helper';
 
 const bodySchema = z.object({
   email: z.string().email(),
@@ -22,18 +25,19 @@ type BodySchema = z.infer<typeof bodySchema>;
 
 @Controller()
 @Public()
-export class AuthenticateWithEmailController {
-  constructor(
-    private authenticateWithEmailUseCase: AuthenticateWithEmailUseCase,
-  ) {}
+export class LoginWithEmailController {
+  constructor(private loginWithEmailUseCase: LoginWithEmailUseCase) {}
 
   @HttpCode(200)
   @UsePipes(new ZodValidationPipe(bodySchema))
-  @Post('/authenticate/with-email')
-  async handle(@Body() body: BodySchema) {
+  @Post('/login/email')
+  async handle(
+    @Body() body: BodySchema,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const { email, password } = body;
 
-    const result = await this.authenticateWithEmailUseCase.execute({
+    const result = await this.loginWithEmailUseCase.execute({
       email,
       password,
     });
@@ -49,6 +53,8 @@ export class AuthenticateWithEmailController {
       }
     }
 
-    return result.value;
+    setAccessTokenCookie({ res, accessToken: result.value.accessToken });
+
+    return { message: 'Login successfull' };
   }
 }

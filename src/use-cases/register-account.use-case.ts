@@ -42,7 +42,7 @@ export class RegisterAccountUseCase {
       email,
       name,
       password: hashedPassword,
-      status: UserStatus.CREATED,
+      status: UserStatus.ACTIVE,
     });
 
     await this.usersRepository.create(user);

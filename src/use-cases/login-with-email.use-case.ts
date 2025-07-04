@@ -5,22 +5,20 @@ import { HashComparer } from 'src/security/cryptography/hash-comparer';
 import { UsersRepository } from 'src/database/repositories/users.repository';
 import { WrongCredentialsError } from './errors/wrong-credentails.error';
 
-interface AuthenticateWithEmailUseCaseRequest {
+interface LoginWithEmailUseCaseRequest {
   readonly email: string;
   readonly password: string;
 }
 
-type AuthenticateWithEmailUseCaseResponse = Either<
+type LoginWithEmailUseCaseResponse = Either<
   WrongCredentialsError,
   {
     readonly accessToken: string;
   }
 >;
 
-const AUTHENTICATE_TOKEN_PURPOSE = 'authenticate'
-
 @Injectable()
-export class AuthenticateWithEmailUseCase {
+export class LoginWithEmailUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private hashCompare: HashComparer,
@@ -30,7 +28,7 @@ export class AuthenticateWithEmailUseCase {
   async execute({
     email,
     password,
-  }: AuthenticateWithEmailUseCaseRequest): Promise<AuthenticateWithEmailUseCaseResponse> {
+  }: LoginWithEmailUseCaseRequest): Promise<LoginWithEmailUseCaseResponse> {
     const userOnDatabase = await this.usersRepository.findByEmail(email);
 
     if (!userOnDatabase) {
@@ -49,7 +47,6 @@ export class AuthenticateWithEmailUseCase {
     const accessToken = await this.encrypter.encrypt({
       payload: {
         sub: userOnDatabase.id.toString(),
-        purpose: AUTHENTICATE_TOKEN_PURPOSE
       },
     });
 

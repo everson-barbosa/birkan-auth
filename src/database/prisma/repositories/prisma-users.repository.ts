@@ -22,8 +22,8 @@ export class PrismaUsersRepository implements UsersRepository {
     await this.prismaService.user.update({
       data,
       where: {
-        id: user.id.toString()
-      }
+        id: data.id,
+      },
     });
   }
 

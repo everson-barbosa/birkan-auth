@@ -2,9 +2,9 @@ import { Entity } from 'src/core/entities/entity';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 
 export enum UserStatus {
-  CREATED = 'CREATED',
-  ACTIVED = 'ACTIVED',
-  INACTIVED = 'INACTIVED',
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  REQUIRE_CHANGE_PASSWORD = 'REQUIRE_CHANGE_PASSWORD',
 }
 
 interface UserProps {
@@ -28,11 +28,15 @@ export class User extends Entity<UserProps> {
   }
 
   set password(password: string) {
-    this.props.password = password
+    this.props.password = password;
   }
 
   get status() {
     return this.props.status;
+  }
+
+  set status(status: UserStatus) {
+    this.props.status = status;
   }
 
   static create(props: UserProps, id?: UniqueEntityID) {

@@ -29,7 +29,7 @@ export class RegisterAccountController {
   constructor(private registerAccountUseCase: RegisterAccountUseCase) {}
 
   @HttpCode(201)
-  @Post('/register-account')
+  @Post('/users')
   async handle(@Body(bodyValidationPipe) body: BodySchema) {
     const result = await this.registerAccountUseCase.execute(body);
 
