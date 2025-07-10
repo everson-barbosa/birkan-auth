@@ -10,7 +10,7 @@ import {
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { WrongCredentialsError } from 'src/use-cases/errors/wrong-credentails.error';
-import { setAccessTokenCookie } from 'src/security/auth/access-token-cookie.helper';
+import { setAccessTokenCookie } from 'src/security/auth/helpers/access-token-cookie.helper';
 import { Response } from 'express';
 import { LoginWithMagicLinkUseCase } from 'src/use-cases/login-with-magic-link.use-case';
 

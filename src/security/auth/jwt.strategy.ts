@@ -3,28 +3,16 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-jwt';
 import { z } from 'zod';
 import { EnvService } from '../../env/env.service';
-import { Request } from 'express';
-import { ACCESS_TOKEN_KEY } from './constants/access-token-key';
 import { Buffer } from 'node:buffer';
-import * as cookie from 'cookie'
+import { extractAccessTokenFromHeader } from './helpers/access-token-cookie.helper';
 
 const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
   iat: z.number().positive(),
-  exp: z.number().positive()
+  exp: z.number().positive(),
 });
 
 export type UserPayload = z.infer<typeof tokenPayloadSchema>;
-
-
-function extractAccessTokenFromHeader(req: Request) {
-  const cookies = cookie.parse(req.headers.cookie || '')
-  const accessToken = cookies[ACCESS_TOKEN_KEY]
-
-  if (!accessToken) return null
-  
-  return accessToken;
-}
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

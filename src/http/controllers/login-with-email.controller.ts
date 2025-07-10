@@ -11,10 +11,9 @@ import {
 import { LoginWithEmailUseCase } from '../../use-cases/login-with-email.use-case';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
-import { Public } from 'src/security/auth/public';
 import { WrongCredentialsError } from 'src/use-cases/errors/wrong-credentails.error';
 import { Response } from 'express';
-import { setAccessTokenCookie } from 'src/security/auth/access-token-cookie.helper';
+import { setAccessTokenCookie } from 'src/security/auth/helpers/access-token-cookie.helper';
 
 const bodySchema = z.object({
   email: z.string().email(),
@@ -24,7 +23,6 @@ const bodySchema = z.object({
 type BodySchema = z.infer<typeof bodySchema>;
 
 @Controller()
-@Public()
 export class LoginWithEmailController {
   constructor(private loginWithEmailUseCase: LoginWithEmailUseCase) {}
 

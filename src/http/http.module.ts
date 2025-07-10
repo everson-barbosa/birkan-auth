@@ -6,41 +6,35 @@ import { RegisterAccountUseCase } from 'src/use-cases/register-account.use-case'
 import { LoginWithEmailUseCase } from 'src/use-cases/login-with-email.use-case';
 import { AuthModule } from 'src/security/auth/auth.module';
 import { CryptographyModule } from 'src/security/cryptography/cryptography.module';
-import { SendMagicLinkEmailController } from './controllers/send-magic-link-email.controller';
-import { ChangePasswordController } from './controllers/change-password.controller';
-import { ChangePasswordUseCase } from 'src/use-cases/change-password.use-case';
+import { SendMagicLinkViaEmailController } from './controllers/send-magic-link-via-email.controller';
+import { ResetPasswordController } from './controllers/reset-password.controller';
+import { ResetPasswordUseCase } from 'src/use-cases/reset-password.use-case';
 import { GetCurrentUserController } from './controllers/get-current-user.controller';
-import { NotificationModule } from 'src/notifications/notification.module';
-import { NotificationsController } from './controllers/notifications.controller';
 import { LoginWithMagicLinkController } from './controllers/login-with-magic-link.controller';
-import { LoginWithOtpController } from './controllers/login-with-otp.controller';
 import { LoginWithMagicLinkUseCase } from 'src/use-cases/login-with-magic-link.use-case';
-import { LoginWithOtpUseCase } from 'src/use-cases/login-with-otp.use-case';
-import { SendMagicLinkEmailUseCase } from 'src/use-cases/send-magic-link-mail.use-case';
+import { SendMagicLinkViaEmailUseCase } from 'src/use-cases/send-magic-link-via-mail.use-case';
 import { GetUserByIdUseCase } from 'src/use-cases/get-user-by-id.use-case';
 import { LogoutController } from './controllers/logout.controller';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, CryptographyModule, NotificationModule],
+  imports: [DatabaseModule, AuthModule, CryptographyModule, MailModule],
   controllers: [
     LoginWithEmailController,
     LoginWithMagicLinkController,
-    LoginWithOtpController,
     LogoutController,
-    SendMagicLinkEmailController,
+    SendMagicLinkViaEmailController,
     RegisterAccountController,
-    ChangePasswordController,
+    ResetPasswordController,
     GetCurrentUserController,
-    NotificationsController,
   ],
   providers: [
     LoginWithEmailUseCase,
     LoginWithMagicLinkUseCase,
-    LoginWithOtpUseCase,
     RegisterAccountUseCase,
-    ChangePasswordUseCase,
+    ResetPasswordUseCase,
     GetUserByIdUseCase,
-    SendMagicLinkEmailUseCase,
+    SendMagicLinkViaEmailUseCase,
   ],
 })
 export class HttpModule {}

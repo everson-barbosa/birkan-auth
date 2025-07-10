@@ -1,6 +1,6 @@
 export interface EncrypterProps {
-  readonly payload: Record<string, unknown>
-  readonly expiresIn?: string | number
+  readonly payload: Record<string, unknown>;
+  readonly expiresIn?: string | number;
 }
 
 export abstract class Encrypter {

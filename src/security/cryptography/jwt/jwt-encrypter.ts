@@ -14,7 +14,7 @@ export class JwtEncrypter implements Encrypter {
     return this.jwtService.signAsync(payload, {
       algorithm: 'RS256',
       privateKey: Buffer.from(this.envService.get('JWT_PRIVATE_KEY'), 'base64'),
-      expiresIn
+      expiresIn,
     });
   }
 }

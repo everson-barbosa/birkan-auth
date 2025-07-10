@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { ChangePasswordUseCase } from 'src/use-cases/change-password.use-case';
+import { ResetPasswordUseCase } from 'src/use-cases/reset-password.use-case';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { CurrentUser } from 'src/security/auth/current-user.decorator';
@@ -21,11 +21,11 @@ type BodySchema = z.infer<typeof bodySchema>;
 const bodyValidationPipe = new ZodValidationPipe(bodySchema);
 
 @Controller()
-export class ChangePasswordController {
-  constructor(private changePasswordUseCase: ChangePasswordUseCase) {}
+export class ResetPasswordController {
+  constructor(private resetPasswordUseCase: ResetPasswordUseCase) {}
 
   @UseGuards(JwtAuthGuard)
-  @Patch('/change-password')
+  @Patch('/users/reset-password')
   async handle(
     @Body(bodyValidationPipe) body: BodySchema,
     @CurrentUser() user: UserPayload,
@@ -33,13 +33,13 @@ export class ChangePasswordController {
     const { sub } = user;
     const { newPassword } = body;
 
-    const result = await this.changePasswordUseCase.execute({
+    const result = await this.resetPasswordUseCase.execute({
       userId: sub,
       newPassword,
     });
 
     if (result.isLeft()) {
-      return new UnauthorizedException(result.value.message);
+      throw new UnauthorizedException(result.value.message);
     }
   }
 }

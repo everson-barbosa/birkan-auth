@@ -6,6 +6,7 @@ export class UserPresenter {
       id: raw.id.toString(),
       name: raw.name,
       email: raw.email,
+      status: raw.status,
     };
   }
 }

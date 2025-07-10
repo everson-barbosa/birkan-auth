@@ -10,7 +10,6 @@ import { RegisterAccountUseCase } from 'src/use-cases/register-account.use-case'
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 import { UserPresenter } from '../presenters/user.presenter';
-import { Public } from 'src/security/auth/public';
 import { EmailAlreadyRegisteredError } from 'src/use-cases/errors/email-already-registered.error';
 
 const bodySchema = z.object({
@@ -24,7 +23,6 @@ type BodySchema = z.infer<typeof bodySchema>;
 const bodyValidationPipe = new ZodValidationPipe(bodySchema);
 
 @Controller()
-@Public()
 export class RegisterAccountController {
   constructor(private registerAccountUseCase: RegisterAccountUseCase) {}
 

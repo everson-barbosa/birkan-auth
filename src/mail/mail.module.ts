@@ -1,9 +1,14 @@
-import { Global, Module } from '@nestjs/common';
-import { MailService } from './mail.service';
+import { Module } from '@nestjs/common';
+import { MailSender } from './mail-sender';
+import { NodemailerSender } from './node-mailer/nodemailer-sender';
 
-@Global()
 @Module({
-  providers: [MailService],
-  exports: [MailService], 
+  providers: [
+    {
+      provide: MailSender,
+      useClass: NodemailerSender,
+    },
+  ],
+  exports: [MailSender],
 })
 export class MailModule {}
