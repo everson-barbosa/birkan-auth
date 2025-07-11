@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { EnvService } from './env/env.service';
 import { Transport } from '@nestjs/microservices';
+import { EnvService } from './infra/env/env.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,7 +9,7 @@ async function bootstrap() {
   app.enableCors({
     origin: 'http://localhost:5173',
     credentials: true,
-  })
+  });
 
   const configService = app.get(EnvService);
 

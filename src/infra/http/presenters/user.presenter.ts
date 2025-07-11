@@ -1,0 +1,12 @@
+import { User } from 'src/domain/auth/enterprise/entities/user.entity';
+
+export class UserPresenter {
+  static toHttp(raw: User) {
+    return {
+      id: raw.id.toString(),
+      name: raw.name,
+      email: raw.email,
+      status: raw.status,
+    };
+  }
+}
