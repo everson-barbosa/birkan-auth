@@ -1,5 +1,6 @@
-import { Entity } from 'src/core/entities/entity';
+import { AggregateRoot } from 'src/core/entities/aggregate-root';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { UserCreatedEvent } from '../events/user-created.event';
 
 export enum UserStatus {
   ACTIVE = 'ACTIVE',
@@ -14,7 +15,7 @@ interface UserProps {
   status: UserStatus;
 }
 
-export class User extends Entity<UserProps> {
+export class User extends AggregateRoot<UserProps> {
   get email() {
     return this.props.email;
   }
@@ -46,6 +47,10 @@ export class User extends Entity<UserProps> {
       },
       id,
     );
+
+    const isNewUser = !id;
+
+    if (isNewUser) user.addDomainEvent(new UserCreatedEvent(user));
 
     return user;
   }

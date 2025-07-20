@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Either, left, right } from 'src/core/either';
 import { UserNotFoundError } from './errors/user-not-found.error';
-import { User } from '../../enterprise/entities/user.entity';
+import { User } from '../../enterprise/entities/user.aggreate-root';
 import { UsersRepository } from '../repositories/users.repository';
 
 interface GetUserByIdUseCaseRequest {

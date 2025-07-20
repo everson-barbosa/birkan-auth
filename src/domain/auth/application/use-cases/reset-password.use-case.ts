@@ -3,7 +3,7 @@ import { UserNotFoundError } from './errors/user-not-found.error';
 import { HashGenerator } from 'src/domain/auth/application/cryptography/hash-generator';
 import { Injectable } from '@nestjs/common';
 import { NotAllowedError } from './errors/not-allowed.error';
-import { UserStatus } from '../../enterprise/entities/user.entity';
+import { UserStatus } from '../../enterprise/entities/user.aggreate-root';
 import { UsersRepository } from '../repositories/users.repository';
 
 interface ResetPasswordUseCaseRequest {

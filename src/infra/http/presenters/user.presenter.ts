@@ -1,4 +1,4 @@
-import { User } from 'src/domain/auth/enterprise/entities/user.entity';
+import { User } from 'src/domain/auth/enterprise/entities/user.aggreate-root';
 
 export class UserPresenter {
   static toHttp(raw: User) {

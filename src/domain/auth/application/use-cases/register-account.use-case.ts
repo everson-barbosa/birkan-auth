@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { Either, left, right } from 'src/core/either';
 import { HashGenerator } from 'src/domain/auth/application/cryptography/hash-generator';
 import { EmailAlreadyRegisteredError } from './errors/email-already-registered.error';
-import { User, UserStatus } from '../../enterprise/entities/user.entity';
+import { User, UserStatus } from '../../enterprise/entities/user.aggreate-root';
 import { UsersRepository } from '../repositories/users.repository';
+import { DomainEvents } from 'src/core/events/domain-events';
 
 interface RegisterAccountUseCaseRequest {
   readonly name: string;
@@ -46,6 +47,8 @@ export class RegisterAccountUseCase {
     });
 
     await this.usersRepository.create(user);
+
+    DomainEvents.dispatchEventsForAggregate(user.id);
 
     return right({
       user,

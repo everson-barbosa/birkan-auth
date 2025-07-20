@@ -3,7 +3,7 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import {
   User,
   UserStatus,
-} from 'src/domain/auth/enterprise/entities/user.entity';
+} from 'src/domain/auth/enterprise/entities/user.aggreate-root';
 
 export class PrismaUserMapper {
   static toDomain(raw: PrismaUser): User {

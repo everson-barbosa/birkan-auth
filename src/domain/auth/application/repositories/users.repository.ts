@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../../enterprise/entities/user.entity';
+import { User } from '../../enterprise/entities/user.aggreate-root';
 
 @Injectable()
 export abstract class UsersRepository {

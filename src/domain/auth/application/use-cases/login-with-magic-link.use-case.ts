@@ -3,7 +3,7 @@ import { Either, left, right } from 'src/core/either';
 import { Encrypter } from 'src/domain/auth/application/cryptography/encrypter';
 import { InvalidAuthCode } from './errors/invalid-auth-code.error';
 import { UserNotFoundError } from './errors/user-not-found.error';
-import { UserStatus } from '../../enterprise/entities/user.entity';
+import { UserStatus } from '../../enterprise/entities/user.aggreate-root';
 import { UsersRepository } from '../repositories/users.repository';
 import { MagicLinkTokensRepository } from '../repositories/magic-link-tokens.repository';
 
