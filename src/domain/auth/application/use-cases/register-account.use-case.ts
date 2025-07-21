@@ -5,6 +5,7 @@ import { EmailAlreadyRegisteredError } from './errors/email-already-registered.e
 import { User, UserStatus } from '../../enterprise/entities/user.aggreate-root';
 import { UsersRepository } from '../repositories/users.repository';
 import { DomainEvents } from 'src/core/events/domain-events';
+import { Email } from '../../enterprise/entities/value-objects/email';
 
 interface RegisterAccountUseCaseRequest {
   readonly name: string;
@@ -40,7 +41,7 @@ export class RegisterAccountUseCase {
     const hashedPassword = await this.hashGenerator.hash(password);
 
     const user = User.create({
-      email,
+      email: Email.create(email),
       name,
       password: hashedPassword,
       status: UserStatus.ACTIVE,

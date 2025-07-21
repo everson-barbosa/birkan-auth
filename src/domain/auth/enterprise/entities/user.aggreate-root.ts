@@ -1,6 +1,7 @@
 import { AggregateRoot } from 'src/core/entities/aggregate-root';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { UserCreatedEvent } from '../events/user-created.event';
+import { Email } from './value-objects/email';
 
 export enum UserStatus {
   ACTIVE = 'ACTIVE',
@@ -9,7 +10,7 @@ export enum UserStatus {
 }
 
 interface UserProps {
-  email: string;
+  email: Email;
   name: string;
   password: string;
   status: UserStatus;

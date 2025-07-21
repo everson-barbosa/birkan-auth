@@ -4,12 +4,13 @@ import {
   User,
   UserStatus,
 } from 'src/domain/auth/enterprise/entities/user.aggreate-root';
+import { Email } from 'src/domain/auth/enterprise/entities/value-objects/email';
 
 export class PrismaUserMapper {
   static toDomain(raw: PrismaUser): User {
     return User.create(
       {
-        email: raw.email,
+        email: Email.create(raw.email),
         name: raw.name,
         password: raw.password,
         status: UserStatus[raw.status],
@@ -21,7 +22,7 @@ export class PrismaUserMapper {
   static toPrisma(raw: User): PrismaUser {
     return {
       id: raw.id.toString(),
-      email: raw.email,
+      email: raw.email.getValue(),
       name: raw.name,
       password: raw.password,
       status: $Enums.UserStatus[raw.status],

@@ -18,7 +18,7 @@ export class OnUserCreatedPublishEventSubscriber implements EventHandler {
     await this.userCreatedProducer.produce({
       id: user.id.toString(),
       name: user.name,
-      email: user.email,
+      email: user.email.getValue(),
     });
   }
 }
