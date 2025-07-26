@@ -1,5 +1,4 @@
-import { Entity } from 'src/core/entities/entity';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { randomUUID } from 'node:crypto';
 import { Optional } from 'src/core/types/Optional';
 
 export enum OutboxStatus {
@@ -8,6 +7,7 @@ export enum OutboxStatus {
 }
 
 interface OutboxEventProps {
+  id: string;
   topic: string;
   payload: string;
   createdAt: Date;
@@ -15,7 +15,17 @@ interface OutboxEventProps {
   status: OutboxStatus;
 }
 
-export class OutboxEvent extends Entity<OutboxEventProps> {
+export class OutboxEvent {
+  private props: OutboxEventProps;
+
+  private constructor(props: OutboxEventProps) {
+    this.props = props;
+  }
+
+  get id() {
+    return this.props.id;
+  }
+
   get topic() {
     return this.props.topic;
   }
@@ -37,18 +47,18 @@ export class OutboxEvent extends Entity<OutboxEventProps> {
   }
 
   static create(
-    props: Optional<OutboxEventProps, 'createdAt' | 'processedAt' | 'status'>,
-    id?: UniqueEntityID,
+    props: Optional<
+      OutboxEventProps,
+      'id' | 'createdAt' | 'processedAt' | 'status'
+    >,
   ) {
-    const outboxEvent = new OutboxEvent(
-      {
-        ...props,
-        createdAt: props?.createdAt ?? new Date(),
-        processedAt: props?.processedAt ?? null,
-        status: props?.status ?? OutboxStatus.PENDING,
-      },
-      id,
-    );
+    const outboxEvent = new OutboxEvent({
+      ...props,
+      id: props?.id ?? randomUUID(),
+      createdAt: props?.createdAt ?? new Date(),
+      processedAt: props?.processedAt ?? null,
+      status: props?.status ?? OutboxStatus.PENDING,
+    });
 
     return outboxEvent;
   }

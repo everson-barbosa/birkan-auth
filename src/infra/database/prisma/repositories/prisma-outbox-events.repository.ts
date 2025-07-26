@@ -1,6 +1,6 @@
 import { PrismaService } from '../prisma.service';
 import { Injectable } from '@nestjs/common';
-import { OutboxEvent } from 'src/domain/auth/enterprise/entities/outbox-event.entity';
+import { OutboxEvent } from 'src/domain/auth/application/messaging/outbox-event';
 import { PrismaOutboxEventMapper } from '../mappers/prisma-outbox-event.mapper';
 import { OutboxEventsRepository } from 'src/domain/auth/application/repositories/outbox-events.repository';
 

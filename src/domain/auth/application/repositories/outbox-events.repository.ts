@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { OutboxEvent } from '../../enterprise/entities/outbox-event.entity';
+import { OutboxEvent } from '../messaging/outbox-event';
 
 @Injectable()
 export abstract class OutboxEventsRepository {
