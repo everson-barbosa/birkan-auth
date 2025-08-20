@@ -5,7 +5,7 @@ export class UserPresenter {
     return {
       id: raw.id.toString(),
       name: raw.name,
-      email: raw.email,
+      email: raw.email.getValue(),
       status: raw.status,
     };
   }
