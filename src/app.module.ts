@@ -4,7 +4,6 @@ import { envSchema } from './infra/env/env';
 import { EnvModule } from './infra/env/env.module';
 import { HttpModule } from './infra/http/http.module';
 import { MailModule } from './infra/mail/mail.module';
-import { EventsModule } from './infra/events/events.module';
 
 @Module({
   imports: [
@@ -15,7 +14,6 @@ import { EventsModule } from './infra/events/events.module';
     MailModule,
     HttpModule,
     EnvModule,
-    EventsModule,
   ],
 })
 export class AppModule {}
